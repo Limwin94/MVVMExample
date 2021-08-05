@@ -8,12 +8,29 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    @IBOutlet var idTextfield: UITextField!
+    @IBOutlet var passwordTextField: UITextField!
+    @IBOutlet var passwordConfirmTextField: UITextField!
+    @IBOutlet var createAccountButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        idTextfield.delegate = self
+        passwordTextField.delegate = self
+        passwordConfirmTextField.delegate = self
     }
-
-
 }
 
+extension ViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField == idTextfield {
+            
+        } else if textField == passwordTextField {
+            
+        } else if textField == passwordConfirmTextField {
+            
+        }
+    }
+}
