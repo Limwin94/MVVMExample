@@ -15,6 +15,7 @@ final class ViewController: UIViewController {
     @IBOutlet var passwordConfirmTextField: UITextField!
     @IBOutlet var createAccountButton: UIButton!
     
+    private var inputConfirmPassword: String = ""
     private var inputPassword: String = ""
     private var idValidation: Bool = false
     private var passwordValidation: Bool = false
@@ -51,7 +52,7 @@ final class ViewController: UIViewController {
             return
         }
         
-        validateIdForm(input: inputText, textField: sender)
+        validateIdForm(input: inputText)
         
         validateSignUpForm()
     }
@@ -63,7 +64,8 @@ final class ViewController: UIViewController {
         }
         
         inputPassword = inputText
-        validatePasswordForm(input: inputPassword, textField: sender)
+        validatePasswordForm(input: inputPassword)
+        validateConfirmPasswordForm(input: inputText)
         
         validateSignUpForm()
     }
@@ -74,25 +76,26 @@ final class ViewController: UIViewController {
             return
         }
         
-        validatePasswordForm(input: inputPassword, textField: sender)
+        inputConfirmPassword = inputText
+        validateConfirmPasswordForm(input: inputText)
     
         validateSignUpForm()
     }
     
     // MARK: - Validate Value
-    private func validateIdForm(input: String, textField: UITextField) {
+    private func validateIdForm(input: String) {
         idValidation = validateIdLength(input: input)
-        updateTextFieldBorderState(state: idValidation, textField)
+        updateTextFieldBorderState(state: idValidation, idTextfield)
     }
     
-    private func validatePasswordForm(input: String, textField: UITextField) {
+    private func validatePasswordForm(input: String) {
         passwordValidation = validatePasswordLength(input: input)
-        updateTextFieldBorderState(state: passwordValidation, textField)
+        updateTextFieldBorderState(state: passwordValidation, passwordTextField)
     }
     
-    private func validateConfirmPasswordForm(input: String, textField: UITextField) {
+    private func validateConfirmPasswordForm(input: String) {
         confirmPasswordValidation = validateConfirmPassword(input: input)
-        updateTextFieldBorderState(state: confirmPasswordValidation, textField)
+        updateTextFieldBorderState(state: confirmPasswordValidation, passwordConfirmTextField)
     }
     
     private func validateIdLength(input: String) -> Bool {
@@ -109,7 +112,7 @@ final class ViewController: UIViewController {
     }
     
     private func validateConfirmPassword(input: String) -> Bool {
-        return input == inputPassword && validatePasswordLength(input: input)
+        return input == inputPassword && input == inputConfirmPassword && validatePasswordLength(input: input)
     }
     
     private func validateSignUpForm() {
